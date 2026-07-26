@@ -32,5 +32,8 @@ job_batch_key_t submit_job_batch(job_batch_t&& batch);
 ///       variables involved with the job batch.
 bool has_job_batch_finished(job_batch_key_t key);
 
+/// Waits/blocks until the job batch has finished.
+void wait_until_job_batch_finished(job_batch_key_t key);
+
 } // namespace worker_threads
 } // namespace THEA
