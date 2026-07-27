@@ -12,3 +12,14 @@
         - (LATER) provide hooks to make this work with the tracy profiler, like callback functions.
 
 > I'd like to think that this is meant to be a load-balancing tool at the end of the day.
+
+
+## Job queue design
+
+- `job.cpp` owns it as a static-mem var.
+- Gives reference to the worker-thread-group obj.
+- Hides an array of job batches (with `batch_complete` eq true).
+- Has `emplace_back()` to move the job batch object.
+    - it's thread-safe in that the atomic counter is updated for the write idx.
+    - But all it does is assign the atomic and move the rest of the vars.
+    - If the array is full, then a warning msg is printed that the presuure is too high and the call blocks until the next available spot is open and 

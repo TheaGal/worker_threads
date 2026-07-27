@@ -25,6 +25,8 @@ public:
     ~Worker_thread_group();
 
     uint32_t get_num_threads() const;
+
+    void set_job_queue();
 };
 
 } // namespace worker_threads
