@@ -11,26 +11,22 @@ namespace THEA
 namespace worker_threads
 {
 
-// Forward decl.
-class Worker_thread_group;
-
-/// Configures jobs to submit to this worker thread group.
-void set_submission_thread_group(Worker_thread_group& thread_group);
-
 // Types.
 using job_t = std::function<void()>;
-
 struct Job_batch
 {
     std::vector<job_t> job_list;
+    std::atomic_uint32_t next_reserve_idx{ 0 };
+    std::atomic_uint32_t num_jobs_complete{ 0 };
     std::atomic_bool batch_complete{ false };
 };
+using job_batch_key_t = uint32_t;
 
-using job_batch_key_t = uint64_t;
-struct Job_queue
-{
+/// Helper func for getting ideal number of threads.
+uint32_t calc_ideal_num_threads();
 
-};
+/// Initializes worker threads.
+void init_worker_threads(uint32_t num_threads = calc_ideal_num_threads());
 
 /// Submits a job as a single-job batch.
 job_batch_key_t submit_job(job_t&& job);
