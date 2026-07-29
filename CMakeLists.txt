@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.28 FATAL_ERROR)
 
 # Project.
-project(thea_timeslicer
+project(thea_worker_threads
     VERSION 0.1.0
     LANGUAGES CXX C)
 
@@ -242,7 +242,7 @@ target_compile_definitions(${PROJECT_NAME}
 
 if(IS_STANDALONE_PROJECT)
     set_target_properties(${PROJECT_NAME} PROPERTIES
-        MACOSX_BUNDLE_GUI_IDENTIFIER "com.hawsoo.timeslicer"
+        MACOSX_BUNDLE_GUI_IDENTIFIER "com.hawsoo.worker_threads"
         MACOSX_BUNDLE_BUNDLE_NAME ${PROJECT_NAME}
         MACOSX_BUNDLE_BUNDLE_VERSION "0.1.0"
         MACOSX_BUNDLE_SHORT_VERSION_STRING "0.1"
