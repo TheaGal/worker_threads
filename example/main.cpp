@@ -85,30 +85,27 @@ int32_t main()
             break;
 
         case 1:
-            jb_keys[i] = THEA::worker_threads::submit_job_batch(
-                { .job_list = {
-                      [&res_prt, i_str]() { some_job2(res_prt.x, i_str + ",1,x"); },
-                      [&res_prt, i_str]() { some_job2(res_prt.y, i_str + ",1,y"); },
-                  } });
+            jb_keys[i] = THEA::worker_threads::submit_job_batch({
+                [&res_prt, i_str]() { some_job2(res_prt.x, i_str + ",1,x"); },
+                [&res_prt, i_str]() { some_job2(res_prt.y, i_str + ",1,y"); },
+            });
             break;
 
         case 2:
-            jb_keys[i] = THEA::worker_threads::submit_job_batch(
-                { .job_list = {
-                      [&res_prt, i_str]() { some_job2(res_prt.x, i_str + ",2,x"); },
-                      [&res_prt, i_str]() { some_job2(res_prt.y, i_str + ",2,y"); },
-                      [&res_prt, i_str]() { some_job2(res_prt.z, i_str + ",2,z"); },
-                  } });
+            jb_keys[i] = THEA::worker_threads::submit_job_batch({
+                [&res_prt, i_str]() { some_job2(res_prt.x, i_str + ",2,x"); },
+                [&res_prt, i_str]() { some_job2(res_prt.y, i_str + ",2,y"); },
+                [&res_prt, i_str]() { some_job2(res_prt.z, i_str + ",2,z"); },
+            });
             break;
 
         case 3:
-            jb_keys[i] = THEA::worker_threads::submit_job_batch(
-                { .job_list = {
-                      [&res_prt, i_str]() { some_job2(res_prt.x, i_str + ",3,x"); },
-                      [&res_prt, i_str]() { some_job2(res_prt.y, i_str + ",3,y"); },
-                      [&res_prt, i_str]() { some_job2(res_prt.z, i_str + ",3,z"); },
-                      [&res_prt, i_str]() { some_job2(res_prt.w, i_str + ",3,w"); },
-                  } });
+            jb_keys[i] = THEA::worker_threads::submit_job_batch({
+                [&res_prt, i_str]() { some_job2(res_prt.x, i_str + ",3,x"); },
+                [&res_prt, i_str]() { some_job2(res_prt.y, i_str + ",3,y"); },
+                [&res_prt, i_str]() { some_job2(res_prt.z, i_str + ",3,z"); },
+                [&res_prt, i_str]() { some_job2(res_prt.w, i_str + ",3,w"); },
+            });
             break;
         }
     }

@@ -15,6 +15,14 @@ namespace
 
 using namespace worker_threads;
 
+struct Job_batch
+{
+    std::vector<job_t> job_list;
+    std::atomic_uint32_t next_reserve_idx{ 0 };
+    std::atomic_uint32_t num_jobs_complete{ 0 };
+    std::atomic_bool batch_complete{ false };
+};
+
 class Job_queue
 {
 public:
@@ -153,12 +161,12 @@ void worker_threads::init_worker_threads(uint32_t num_threads)
 
 auto worker_threads::submit_job(job_t&& job) -> job_batch_key_t
 {
-    return submit_job_batch(Job_batch{ .job_list = { job } });
+    return submit_job_batch({ job });
 }
 
-auto worker_threads::submit_job_batch(Job_batch&& batch) -> job_batch_key_t
+auto worker_threads::submit_job_batch(std::vector<job_t>&& batch) -> job_batch_key_t
 {
-    return g_thread_group->job_batch_emplace_back(std::move(batch));
+    return g_thread_group->job_batch_emplace_back(Job_batch{ .job_list = std::move(batch) });
 }
 
 bool worker_threads::has_job_batch_finished(job_batch_key_t key)

@@ -1,6 +1,5 @@
 #pragma once
 
-#include <atomic>
 #include <cstdint>
 #include <functional>
 #include <vector>
@@ -13,13 +12,6 @@ namespace worker_threads
 
 // Types.
 using job_t = std::function<void()>;
-struct Job_batch
-{
-    std::vector<job_t> job_list;
-    std::atomic_uint32_t next_reserve_idx{ 0 };
-    std::atomic_uint32_t num_jobs_complete{ 0 };
-    std::atomic_bool batch_complete{ false };
-};
 using job_batch_key_t = uint32_t;
 
 /// Helper func for getting ideal number of threads.
@@ -32,7 +24,7 @@ void init_worker_threads(uint32_t num_threads = calc_ideal_num_threads());
 job_batch_key_t submit_job(job_t&& job);
 
 /// Submits a job batch for execution.
-job_batch_key_t submit_job_batch(Job_batch&& batch);
+job_batch_key_t submit_job_batch(std::vector<job_t>&& batch);
 
 /// Checks whether the job batch has finished.
 /// @note this is an atomic check, so this check is required for memory visibility with other
