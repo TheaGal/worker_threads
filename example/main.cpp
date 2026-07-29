@@ -42,7 +42,7 @@ int32_t main()
         int32_t result = 0;
         assert(result == 0);
 
-        auto jb_key = THEA::worker_threads::submit_job([&]() { result = some_job(); });
+        auto jb_key = THEA::worker_threads::submit_job([&result]() { result = some_job(); });
 
         while (!THEA::worker_threads::has_job_batch_finished(jb_key))
         {
@@ -55,7 +55,7 @@ int32_t main()
         int32_t result = 0;
         assert(result == 0);
 
-        auto jb_key = THEA::worker_threads::submit_job([&]() { result = some_job(); });
+        auto jb_key = THEA::worker_threads::submit_job([&result]() { result = some_job(); });
 
         THEA::worker_threads::wait_until_job_batch_finished(jb_key);
         assert(result == 123);
