@@ -148,10 +148,8 @@ endif()
 # Main source files.
 set(MAIN_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/include/worker_threads/job.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/worker_threads/worker_thread_group.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/worker_threads_public.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/worker_threads/job.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/worker_threads/worker_thread_group.cpp
 )
 
 # Support source files.
